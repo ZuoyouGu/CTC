@@ -94,7 +94,48 @@ public class Sort{
 			arr[k++] = helper[s1++];
 		}
 	}
-		
+	
+	public void quicksort(int start, int end){
+		if(start>=end) return;
+		int s = start, e = end;
+		int pivot = (start+end)/2;
+		while(start < end){
+			while(start<pivot && arr[start]<=arr[pivot]){
+				start++;
+			}
+			while(end>pivot && arr[pivot]<arr[end]){
+				end--;
+			}
+			if(start<pivot){
+				if(end>pivot){// exchange this two numbers
+					int tmp = arr[end];
+					arr[end] = arr[start];
+					arr[start] = tmp;
+					start++;
+					end--;
+				}
+				else{
+					int tmp = arr[start];
+					arr[start] = arr[pivot];
+					arr[pivot] = tmp;
+					end--;
+					pivot = start;
+				}
+			}
+			else{// start>=pivot
+				if(end>pivot){
+					int tmp = arr[end];
+					arr[end] = arr[pivot];
+					arr[pivot] = tmp;
+					start++;
+					pivot = end;
+				}
+			}
+		}
+		quicksort(s, pivot-1);
+		quicksort(pivot+1, e);
+	}
+	
 	public void print(){
 		for(int i=0; i<arr.length; i++){
 			System.out.print(arr[i]+" ");
@@ -102,10 +143,15 @@ public class Sort{
 	}
 	
 	public static void main(String[] args){
-		int[] arr = {14, 8, 9, 11, 5, 13, 7, 4, 2, 10, 15, 1, 6, 12, 3};
+		int[] arr = {13, 8, 9, 11, 13, 13, 7, 15, 2, 10, 15, 1, 13, 12, 13};
 		Sort sort = new Sort(arr);
 		//sort.sort_iterative();
-		sort.sort_recursive();
+		//sort.sort_recursive();
+		sort.quicksort(0, arr.length-1);
 		sort.print();
+		System.out.println();
+		for(Integer i: arr){
+			System.out.print(i+" ");
+		}
 	}
 }
