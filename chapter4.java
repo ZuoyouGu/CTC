@@ -1,3 +1,7 @@
+/*
+ * a lot of bugs here. better refer to Tree.java and GraphNode.java
+ */
+
 public class Node{
     int val;
     Node left = null;
